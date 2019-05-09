@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/carts/main",
+    "pages/category/main",
+    "pages/my/main",
+    "pages/login/main",
+    "pages/foodDetail/main"
+   
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "backgroundColor": "#fafafa",
+    "selectedColor": "#333",
+    "borderStyle": "white",
+
+    "list": [{
+      "text": "首页",
+      "pagePath": "pages/index/main",
+      "iconPath": "static/tabs/home.png",
+      "selectedIconPath": "static/tabs/home-active.png"
+    },{
+      "text": "分类",
+      "pagePath": "pages/category/main",
+      "iconPath": "static/tabs/home.png",
+      "selectedIconPath": "static/tabs/home-active.png"
+    },{
+      "text": "购物车",
+      "pagePath": "pages/carts/main",
+      "iconPath": "static/tabs/cart10.png",
+      "selectedIconPath": "static/tabs/cart.png"
+    },{
+      "text": "我的",
+      "pagePath": "pages/my/main",
+      "iconPath": "static/tabs/orders.png",
+      "selectedIconPath": "static/tabs/orders-active.png"
+    }],
+    "position": "bottom"
+  }
+}

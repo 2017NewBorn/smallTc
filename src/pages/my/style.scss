@@ -1,0 +1,78 @@
+.index{
+    .header{
+        width: 100%;
+        display: flex;
+        padding-bottom: 20rpx;
+        border-bottom: 10rpx solid rgb(243,243,243);
+        .userImg{
+            width: 200rpx;
+            padding-left: 30rpx;
+            img{
+                width: 120rpx;
+                height: 120rpx;
+                border-radius: 50%;
+            }
+        }
+        .userInfo{
+            width: 300rpx;
+            p{
+                font-size: 30rpx;
+                margin-top: 18rpx;
+            }
+        }
+        .icW{
+            width: 250rpx;
+            .icon{
+                margin-top: 30rpx;
+                margin-left: 80rpx;
+                img{
+                    width: 60rpx;
+                    height: 60rpx;
+                }
+            }
+        }
+    }
+    .myorder{
+        width: 100%;
+        padding-top: 30rpx;
+        padding-bottom: 50rpx;
+        border-bottom: 20rpx solid rgb(243,243,243);
+         p{
+           height: 60rpx;
+           line-height: 60rpx;
+           padding-left: 40rpx;
+           margin-bottom: 26rpx;
+         }
+         .orderwap{
+             display: flex;
+             width: 100%;
+            div{
+                width: 25%;
+                img{
+                    width: 60rpx;
+                    height: 60rpx;
+                    margin-left: 66rpx;
+                }
+                span{
+                    display: block;
+                    text-align: center;
+                    font-size: 30rpx;
+                }
+            }
+         }
+    }
+    .list{
+        ul{
+            li{
+                height:100rpx;
+                line-height: 100rpx;
+                padding-left: 36rpx;
+                border-bottom: 1rpx solid rgb(243,243,243);
+                img{
+                    width: 36rpx;
+                    height: 36rpx;
+                }
+            }
+        }
+    }
+}

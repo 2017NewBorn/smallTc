@@ -1,0 +1,106 @@
+.index{
+    .search{
+        position: relative;
+        input{
+            width: 640rpx;
+            margin-left: 25rpx;
+            border:2rpx solid grey;
+            border-radius: 35rpx;
+            text-indent: 10rpx;
+            font-size: 30rpx;
+            padding-left: 50rpx;
+        }
+        icon{
+            position: absolute;
+            top: 10rpx;
+            left: 30rpx;
+        }
+    }
+    .indexFoodsList{
+        width: 96%;
+        margin-left:2%; 
+        ul{
+            li{
+                margin-top: 20rpx;
+                border-bottom: 2rpx solid rgb(244,244,244);
+                .foodswap{
+                   padding: 20rpx;
+                   display: flex;
+                   img{
+                       width:400rpx;
+                       height: 252rpx;
+                   }
+                   div{
+                       width: 100%;
+                       position: relative;
+                       p{
+                           margin-top: 12rpx;
+                       }
+                       button{
+                           width: 50rpx;
+                           height: 50rpx;
+                           line-height: 50rpx;
+                           background: red;
+                           border: none;
+                           color: white;
+                           text-align: center;
+                           padding: 0;
+                           margin: 0;
+                           border-radius: 50%;
+                           position: absolute;
+                           right: 0;
+                           bottom: 5rpx;
+                       }
+                       p:nth-child(1){
+                             padding-left: 15rpx;
+                             font-size: 40rpx;
+                             font-weight: bold;
+                       }
+                       p:nth-child(2){
+                        padding-left:20rpx;
+                        font-size: 30rpx;
+                        font-size: 35rpx;
+                        color: rgb(163,163,163);
+                      }
+                      .money{
+                          padding-left: 20rpx;
+                          font-size: 48rpx;
+                          color: red;
+                          span{ 
+                              font-size: 30rpx;
+                          }
+                    
+                      }
+                      div{
+                          padding-left: 20rpx;
+                          display: flex;
+                          p:nth-child(1){
+                              line-height: 36rpx;
+                              width: 130rpx;
+                              height: 36rpx;
+                              font-size: 23rpx;
+                              background: white;
+                              color: rgb(255,120,101);
+                              border-radius: 10rpx;
+                              border-radius: 18rpx 0 0 18rpx;
+                              border: 2rpx solid rgb(255,120,101);
+                              text-align: center;
+                            }
+                          p:nth-child(2){
+                              width: 130rpx;
+                              line-height: 36rpx;
+                              height: 36rpx;
+                              font-size: 23rpx;
+                              background: rgb(255,120,101);
+                              border-radius: 0 18rpx 18rpx 0;
+                              border: 2rpx solid rgb(255,120,101);
+                              color: white;
+                              text-align: center;
+                            }
+                      }
+                   }
+                }
+            }
+        }
+    }
+}
