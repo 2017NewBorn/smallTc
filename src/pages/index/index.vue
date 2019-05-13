@@ -15,7 +15,7 @@
      </div>
      <div class="indexFoodsList">
        <ul>
-         <li v-for="(item,index) in remFoodslist" :key="index">
+         <li v-for="(item,index) in remFoodslist" :key="index" @click="toDetail(item.id)">
            <div class="foodswap">
               <img :src="item.foodsImgList[0]" alt="">
               <div>
@@ -25,7 +25,7 @@
                   <p>已团0份</p><p>剩余{{item.number}}份</p>
                 </div>
                 <p class="money"><span>￥</span>{{item.foodsPrice}}</p>
-               <button>+</button>
+               <button @touchstart.stop='addTocart(item.id)'>+</button>
               </div>
            </div>
          </li>
@@ -64,7 +64,27 @@ export default {
           })
           console.log(res)
           this.remFoodslist = res.data.data
-        }
+        },
+        toDetail(value){
+          console.log(value)
+          wx.navigateTo({
+            url:`/pages/foodDetail/main?id=${value}`
+            })
+        },
+        async addTocart(value){
+          console.log(value)
+
+          //将商品id和数量传送给后台
+          //后台即存入数据库对应的购物车
+          //传参数时需要再带上用户的openid
+          let openid =await getStorage('openid')
+          // console.log(openid,'获取openid')
+          let res = await get('/carts/addCarts',{
+                   openId:openid,
+                   foodsId:value,
+                   count:1
+            })
+          }
      }
      
 }

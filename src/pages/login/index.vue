@@ -16,17 +16,15 @@ export default {
             let data = await post("/user/login", {
               code: res.code
             });
-
+            console.log(data.data.openid)
             //将获取到的openid存入session中    
-            wx.setStorageSync('openid', data.data.openId);
+           wx.setStorageSync('openid', data.data.openid);
           }
         });
         //到这一步授权成功，跳转到用户自己的用户界面
         wx.switchTab({
           url: '/pages/my/main'
-        });
-          
-          
+        })
       } else {
         wx.showToast({
           icon: "none",

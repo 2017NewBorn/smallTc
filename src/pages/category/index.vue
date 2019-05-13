@@ -46,6 +46,7 @@ export default {
             })
             console.log(result)
             this.foodsList = result.data.data
+            console.log(this.foodsList,'列表')
          },
          async selectitem(value){
            console.log(value)

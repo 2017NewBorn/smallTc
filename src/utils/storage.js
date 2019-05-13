@@ -3,7 +3,7 @@ export function getStorage(value){
           wx.getStorage({
               key: value,
               success: (result) => {
-                  resolve(result)
+                  resolve(result.data)
               },
               fail: (err) => {
                   reject(err)
