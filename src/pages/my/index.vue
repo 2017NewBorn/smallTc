@@ -23,7 +23,9 @@
      </div>
      <div class="list">
        <ul>
-         <li> <img src="../../../static/icon/zengjia.png" alt=""> 成为团长</li>
+         <li @click="toApply" v-if="appl"> <img src="../../../static/icon/zengjia.png" alt=""> 成为团长</li>
+          <li v-if="!appl"> <img src="../../../static/icon/zengjia.png" alt=""> 下单查看</li>
+          <li v-if="!appl"> <img src="../../../static/icon/mongey1.png" alt=""> 佣金管理</li>
          <li> <img src="../../../static/icon/weixinzhifu.png" alt=""> 优惠卷</li>
          <li> <img src="../../../static/icon/wode.png" alt=""> 切换团长</li>
        </ul>
@@ -31,7 +33,7 @@
   </div>
 </template>
 <script>
-import {post,getStorage} from '../../utils/storage.js'
+import {post,getStorage, get} from '../../utils/storage.js'
 export default {
       // async created() {
       //     console.log('mypages')
@@ -40,8 +42,13 @@ export default {
         return {
           userInfo:{
 
-          }
+          },
+          appl:true
+       
         }
+      },
+      created () {
+         this.isHead()
       },
       onLoad(){
         console.log('测试数据')
@@ -55,15 +62,28 @@ export default {
              wx.setStorageSync('user',result.rawData);
                
              console.log(this.userInfo)
-          },
-          fail: () => {},
-          complete: () => {}
+          }
         });
-        // getStorage('openid').then(async res=>{
-        //     let data = await post('/user/setUserInfo',{
-        //        openid:res.data
-        //     })
-        // })
+       
+      },
+      methods: {
+        async isHead(){
+          //判断是否是团长
+          let openid = await getStorage('openid')
+            let res = await get('/head/isHead',{
+                openid
+            })    
+            console.log(res.data)
+            if(res.data.code==0){
+              this.appl = false
+            }
+        },
+        toApply(){
+          wx.navigateTo({
+            url: '/pages/Apply/main'
+          });
+          
+        }
       }
 }
 </script>

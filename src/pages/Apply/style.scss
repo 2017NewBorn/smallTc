@@ -1,0 +1,26 @@
+.apply{
+    padding-left: 15rpx;
+    padding-right: 15rpx;
+    p{
+        display: flex;
+        height: 100rpx;
+        line-height: 100rpx;
+        padding-left: 20rpx;
+        border-bottom: 2rpx solid grey;
+        width:96%;
+        input{
+            width: 580rpx;
+            height: 100rpx;
+            line-height: 100rpx;
+            text-align: center;
+        }
+    }
+    button{
+        background: rgb(151,198,24);
+        border-radius: 40rpx;
+        color: white;
+        margin-top: 100rpx;
+        border: none;
+        width: 600rpx;
+    }
+}

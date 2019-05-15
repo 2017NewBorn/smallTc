@@ -4,7 +4,10 @@
        <input type="text" placeholder="搜索商品">
        <icon type="search" size='20'/>
      </div>
-     <div class="time">
+     <div class="head">
+        <p>{{head.name}}</p>
+        <p>{{head.address}}</p>
+       <button>切换</button>
      </div>
      <div>
        <ul>
@@ -37,7 +40,7 @@
 import {getStorage,showToast,get} from '../../utils/storage.js'
 export default {
      async onLoad(){
-       console.log('123')
+     
        //进入页面先判断是否登陆，如果未登陆跳到登陆授权页面
        try {
          //获取缓存中的数据
@@ -50,11 +53,21 @@ export default {
           });
        }
        this.getFoodslist()
+        //将用户选择的团长存放到缓存中
+       //先判断用户是否有选择团长
+         let selectHead = wx.getStorageSync('selecthead');
+           console.log(selectHead)
+           if(selectHead){
+             this.head = selectHead
+           }else{
+           wx.navigateTo({url: '/pages/selectHead/main', });
+           }
      },
      data () {
        return {
           user:{},
-          remFoodslist:[]
+          remFoodslist:[],
+          head:{}
        }
      },
      methods: {

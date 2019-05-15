@@ -11,7 +11,7 @@
         :key="index">
         <div class="con" :style="item.textStyle">
           <div class="left">
-            <div class="icon"></div>
+            <div class="icon" @touchstart.stop="changeColor(index,item.foodsid)" :class="[Listids[index]?'active':'',{active:allcheck}]"></div>
             <div class="img">
               <img :src="item.img" alt="">
             </div>
@@ -26,7 +26,6 @@
             </div>
           </div>
         </div>
-
         <div class="delete" :style="item.textStyle1">
           <div>
             删除
@@ -39,15 +38,15 @@
       <img src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/noCart-a8fe3f12e5.png" alt="">
     </div>
     <div class="fixed">
-      <!-- <div @click="allCheck" :class="{active:allcheck}" class="left">
+      <div @click="allCheck" :class="{active:allcheck}" class="left">
         全选({{isCheckedNumber}})
       </div>
       <div class="right">
         <div>
           ￥{{allPrise}}
         </div>
-        <div @click="orderDown">下单</div>
-      </div> -->
+        <div @click="orderDown">购买</div>
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +67,9 @@ export default {
         moveEndY:"",
         X:0,
         Y:'',
-        flag:false
+        flag:false,
+        allcheck:false,
+        Listids:[]
         
     }
   },
@@ -111,7 +112,7 @@ export default {
              this.flag = true
            }
            if(!this.flag){
-             console.log('x>-100','dddddddddddddd')
+
              this.moveX = e.touches[0].pageX
              this.moveY = e.touches[0].pageY
              this.X = this.moveX-this.startX
@@ -144,6 +145,7 @@ export default {
         endMove(e){
           //滑动结束
           this.initTextStyle()
+          let index = e.currentTarget.dataset.index
           console.log(e,'滑动结束时调用')
           if(this.X>-50){
             this.tranX1 =0
@@ -155,8 +157,63 @@ export default {
             this.tranX =-100
             this.listData[index].textStyle = `transform:translateX(${this.tranX}rpx)`
             this.listData[index].textStyle1 = `transform:translateX(${this.tranX1}rpx)`
+         }
+        },
+        orderDown(){
+
+        },
+        allCheck(){
+              //先清空
+              this.Listids=[]
+              if(this.allcheck){
+                //如果已经全选就全不选
+                this.allcheck = false
+              }else{
+                console.log('选择全部')
+                this.allcheck = true
+                //遍历所有商品的id
+                for(let i=0;i<this.listData.length;i++){
+                  const element = this.listData[i]
+                  this.Listids.push(element.foodsid)
+                }
+              }
+        },
+        changeColor(index,id){
+           console.log(index,id)
+           if(this.Listids[index]){
+             //如果Listids中已经存在了这个商品
+             this.$set(this.Listids,index,false)
+           }else{
+             this.$set(this.Listids,index,id)
+           }
         }
+    },
+    computed: {
+      isCheckedNumber(){
+        let number = 0
+        for(let i=0;i<this.Listids.length;i++)
+        {
+          //计算属性计算所选择的商品数量
+          if(this.Listids[i]){
+            number++
+          }
         }
+        if(number ==this.listData.length &&number!=0){
+          this.allcheck=true
+        }else{
+          this.allcheck=false
+        }
+        return number
+      },
+      allPrise(){
+        let Price = 0
+        for(let i=0;i<this.Listids.length;i++){
+          if(this.Listids[i]){
+            Price = Price+this.listData[i].foodsPrice*this.listData[i].count
+          }
+        }
+        return Price
+      } 
     }
 }
 </script>
