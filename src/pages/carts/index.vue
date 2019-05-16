@@ -1,10 +1,5 @@
 <template>
    <div class="cart">
-    <div class="top">
-      <div>30天无忧退货</div>
-      <div>48小时快速退款</div>
-      <div>满88元免邮费</div>
-    </div>
     <div class="cartlist">
       <!--  -->
       <div class="item" @touchstart="startMove" @touchmove="deleteGoods" @touchend="endMove" :data-index="index" v-for="(item,index) in listData"
@@ -26,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="delete" :style="item.textStyle1">
+        <div class="delete" :style="item.textStyle1" @touchstart.stop="deleteFoods(item.foodsid)">
           <div>
             删除
           </div>
@@ -51,7 +46,7 @@
   </div>
 </template>
 <script>
-import {getStorage,get} from '../../utils/storage.js'
+import {getStorage,get,post} from '../../utils/storage.js'
 import indexVue from '../index/index.vue';
 export default {
   data () {
@@ -74,6 +69,29 @@ export default {
     }
   },
    async onShow(){
+         this.getCarts()
+         this.initTextStyle()
+   },
+   
+    methods: {
+        async getCartNum(){
+          const openid  = await getStorage('openid')
+          let res = await get('/carts/getCartItemSum',{
+            openid
+          })
+          if(res.data.data.num==0){
+            wx.removeTabBarBadge({
+              index: 2
+            });
+          }
+          else{
+            wx.setTabBarBadge({
+                index: 2,
+                 text: `${res.data.data.num}`
+             });
+          }
+        },
+     async getCarts(){
           let openid = await getStorage('openid')
           let res = await get('/carts/searchCart',{
                  openid
@@ -81,10 +99,17 @@ export default {
          console.log(res)
          this.listData = res.data.data.foodsList 
          console.log(this.listData)
-         this.initTextStyle()
-   },
-   
-    methods: {
+      },
+      async deleteFoods(id){
+          console.log(id)
+          let openid = await getStorage('openid')
+          let res = await get('/carts/removeCart',{
+             openid,foodsid:id
+          })
+          this.getCarts()
+          //重新请求购物车更新视图
+          this.getCartNum()
+       },
        initTextStyle(){
              //滑动之前先初始化数据
              for(let i=0;i<this.listData.length;i++)
@@ -159,8 +184,33 @@ export default {
             this.listData[index].textStyle1 = `transform:translateX(${this.tranX1}rpx)`
          }
         },
-        orderDown(){
-
+       async orderDown(){
+          console.log(this.Listids)
+          let openid = await getStorage('openid')
+          let newArr=[]
+          for(let i=0;i<this.Listids.length;i++){
+            if(typeof this.Listids[i]=='number'){
+                 newArr.push(this.Listids[i])
+            }
+          }
+          console.log(newArr)
+          if(newArr.length>0){
+            //勾选过商品
+             let res = await post('/order/createOrder',{
+               openid,paylist:newArr
+             })
+          }else{
+            console.log('您未选择任何商品')
+            wx.showModal({
+              title: '请选择商品',
+              content: '您未选择任何商品',
+              showCancel: true,
+              cancelText: '取消',
+              cancelColor: '#000000',
+              confirmText: '确定',
+              confirmColor: '#3CC51F'
+            });
+          }
         },
         allCheck(){
               //先清空
